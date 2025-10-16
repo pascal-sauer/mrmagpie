@@ -83,7 +83,7 @@ fullCELLULARMAGPIE <- function(rev = numeric_version("0.1"), dev = "",
                        paste0(versionTag, "_gsoilc-", emu_id))
 
 
-  magYearsPastLong <- c("y1995", "y2000", "y2005", "y2010", "y2015")
+  magYearsPastLong <- c("y1995", "y2000", "y2005", "y2010", "y2015", "y2020")
   magYears         <- findset("time")
   shortYears       <- findset("t_all")
   lpjYears         <- seq(1995, 2100, by = 5)
@@ -110,11 +110,12 @@ fullCELLULARMAGPIE <- function(rev = numeric_version("0.1"), dev = "",
   superregion <- ifelse("superregion" %in% colnames(mapReg), "superregion", "region")
 
   # 09 drivers
-  calcOutput("GridPop", source = "Gao", subtype = "all", harmonize_until = 2015, urban = FALSE,
+  lastHistYear <- as.numeric(sub("y", "", magYearsPastLong[length(magYearsPastLong)]))
+  calcOutput("GridPop", source = "Gao", subtype = "all", harmonize_until = lastHistYear, urban = FALSE,
              cellular = TRUE, cells = cells, aggregate = "cluster",
              years = magYears, round = 6, outputStatistics = stats, file = "f09_pop_grid.cs3")
 
-  calcOutput("GridPop", source = "Gao", subtype = "all", harmonize_until = 2015, urban = TRUE,
+  calcOutput("GridPop", source = "Gao", subtype = "all", harmonize_until = lastHistYear, urban = TRUE,
              cellular = TRUE, cells = cells, aggregate = "cluster",
              years = magYears, round = 6, outputStatistics = stats, file = "f09_urbanpop_grid.cs3")
 
